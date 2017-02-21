@@ -26,8 +26,15 @@ namespace Derivco
             public string action;
             public double latitude;
             public double longitude;
-            public int clutter;
             public DateTime date;
+        }
+
+        public class Markers
+        {
+            public double latitude;
+            public double longitude;
+            public GMarkerGoogleType markerColour2;
+            public int clutter;
         }
 
         enum userAction { LoggedIn, LoggedOut };
@@ -37,6 +44,7 @@ namespace Derivco
         String[] gameAction2 = { "PlayedGame", "WatchedAdvert", "PurchasedItem" };
 
         List<AllEvents> allEventsList = new List<AllEvents>();
+        List<Markers> markersToAdd = new List<Markers>();
         SQLiteConnection dbConnect;
 
         DateTime currentDate = DateTime.Now;
@@ -172,10 +180,10 @@ namespace Derivco
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-
             GMapOverlay markers = new GMapOverlay("Markers");
             //Clears current overlays 
             gMap.Overlays.Clear();
+            markersToAdd.Clear();
 
             #region LoggedIn
             if (loggedInCheckBox.Checked == true)
@@ -201,6 +209,7 @@ namespace Derivco
                 SQLiteCommand command = new SQLiteCommand(query, dbConnect);
                 SQLiteDataReader reader = command.ExecuteReader();
 
+
                 while (reader.Read())
                 {
                     GMarkerGoogleType markerColour = GMarkerGoogleType.lightblue_pushpin;
@@ -214,8 +223,25 @@ namespace Derivco
                         double latitude = double.Parse(reader["latitude"].ToString());
                         double longitude = double.Parse(reader["longitude"].ToString());
 
-                        GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        markers.Markers.Add(marker);
+                        Markers currentMarker = new Markers();
+
+                        currentMarker.latitude = latitude;
+                        currentMarker.longitude = longitude;
+                        currentMarker.markerColour2 = markerColour;
+
+                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
+
+                        if (check.Item1)
+                        {
+                            markersToAdd.Add(currentMarker);
+                        }
+                        else
+                        {
+                            currentMarker.clutter = check.Item2;
+                            markersToAdd.Add(currentMarker);
+                        }
+                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
+                        //markers.Markers.Add(marker);
                     }
                 }
             }
@@ -259,8 +285,26 @@ namespace Derivco
                         double latitude = double.Parse(reader["latitude"].ToString());
                         double longitude = double.Parse(reader["longitude"].ToString());
 
-                        GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        markers.Markers.Add(marker);
+                        Markers currentMarker = new Markers();
+
+                        currentMarker.latitude = latitude;
+                        currentMarker.longitude = longitude;
+                        currentMarker.markerColour2 = markerColour;
+
+                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
+
+                        if (check.Item1)
+                        {
+                            markersToAdd.Add(currentMarker);
+                        }
+                        else
+                        {
+                            currentMarker.clutter = check.Item2;
+                            markersToAdd.Add(currentMarker);
+                        }
+
+                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
+                        //markers.Markers.Add(marker);
                     }
                 }
             }
@@ -304,8 +348,25 @@ namespace Derivco
                         double latitude = double.Parse(reader["latitude"].ToString());
                         double longitude = double.Parse(reader["longitude"].ToString());
 
-                        GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        markers.Markers.Add(marker);
+                        Markers currentMarker = new Markers();
+
+                        currentMarker.latitude = latitude;
+                        currentMarker.longitude = longitude;
+                        currentMarker.markerColour2 = markerColour;
+
+                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
+
+                        if (check.Item1)
+                        {
+                            markersToAdd.Add(currentMarker);
+                        }
+                        else
+                        {
+                            currentMarker.clutter = check.Item2;
+                            markersToAdd.Add(currentMarker);
+                        }
+                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
+                        //markers.Markers.Add(marker);
                     }
                 }
             }
@@ -349,15 +410,32 @@ namespace Derivco
                         double latitude = double.Parse(reader["latitude"].ToString());
                         double longitude = double.Parse(reader["longitude"].ToString());
 
-                        GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        markers.Markers.Add(marker);
+                        Markers currentMarker = new Markers();
+
+                        currentMarker.latitude = latitude;
+                        currentMarker.longitude = longitude;
+                        currentMarker.markerColour2 = markerColour;
+
+                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
+
+                        if (check.Item1)
+                        {
+                            markersToAdd.Add(currentMarker);
+                        }
+                        else
+                        {
+                            currentMarker.clutter = check.Item2;
+                            markersToAdd.Add(currentMarker);
+                        }
+                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
+                        //markers.Markers.Add(marker);
                     }
                 }
             }
 
             #endregion
 
-            #region LoggedIn
+            #region PurcahsedItem
             if (purchasedItemCheckBox.Checked == true)
             {
                 bool userCheck = false;
@@ -394,14 +472,42 @@ namespace Derivco
                         double latitude = double.Parse(reader["latitude"].ToString());
                         double longitude = double.Parse(reader["longitude"].ToString());
 
-                        GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        markers.Markers.Add(marker);
+                        Markers currentMarker = new Markers();
+
+                        currentMarker.latitude = latitude;
+                        currentMarker.longitude = longitude;
+                        currentMarker.markerColour2 = markerColour;
+
+                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
+
+                        if (check.Item1)
+                        {
+                            markersToAdd.Add(currentMarker);
+                        }
+                        else
+                        {
+                            currentMarker.clutter = check.Item2;
+                            markersToAdd.Add(currentMarker);
+                        }
+                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
+                        //markers.Markers.Add(marker);
                     }
                 }
             }
 
             #endregion
-            
+
+            for (int i = 0; i < markersToAdd.Count - 1; i ++)
+            {
+                if(markersToAdd[i].clutter > 0)
+                {
+                    markersToAdd[i].markerColour2 = GMarkerGoogleType.orange_dot;
+                }
+                GMapMarker marker = new GMarkerGoogle(new PointLatLng(markersToAdd[i].latitude, markersToAdd[i].longitude), markersToAdd[i].markerColour2);
+                marker.ToolTipText = "Amount of points: " + markersToAdd[i].clutter.ToString();
+                markers.Markers.Add(marker);
+            }
+
             //Draw overlay on screen
             gMap.Overlays.Add(markers);
 
@@ -410,6 +516,34 @@ namespace Derivco
             //Only seems to refresh once you zoom in/out. gMap.Refresh() doesn't help
             gMap.Zoom = 0;
             gMap.Zoom = zoomLevel;
+        }
+
+        public Tuple<bool, int> PlaceMarker(double lat, double lon)
+        {
+
+            int clutterAmount;
+
+            if(gMap.Zoom > 7)
+            {
+                clutterAmount = 1;
+            }
+            else
+            {
+                clutterAmount = 20;
+            }
+
+
+            for (int j = 0; j < markersToAdd.Count - 1; j++)
+            {
+                int clutter = markersToAdd[j].clutter;
+
+                if (markersToAdd[j].longitude >= lon - clutterAmount && markersToAdd[j].longitude <= lon + clutterAmount && markersToAdd[j].latitude >= lat - clutterAmount && markersToAdd[j].latitude <= lat + clutterAmount)
+                {
+                    markersToAdd.Remove(markersToAdd[j]);
+                    return Tuple.Create(false, clutter + 1);
+                }
+            }
+            return Tuple.Create(false, 0);
         }
 
         public bool InTime(TimeSpan time)
