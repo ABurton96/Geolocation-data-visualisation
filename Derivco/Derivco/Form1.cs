@@ -54,10 +54,12 @@ namespace Derivco
         public Form1()
         {
             InitializeComponent();
+            this.MouseWheel += new MouseEventHandler(Form1_MouseWheel);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             Random random = new Random();
 
             //Checks if the event database has already been created
@@ -119,6 +121,11 @@ namespace Derivco
                 dbConnect = new SQLiteConnection("Data Source=Events.sqlite;Version=3;");
                 dbConnect.Open();
             }
+        }
+
+        private void Form1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            confirmButton_Click(sender, e);
         }
 
         //Returns a random double
@@ -522,15 +529,25 @@ namespace Derivco
         {
 
             int clutterAmount;
+          //  Console.WriteLine(gMap.Zoom.ToString());
 
             //Checks current map zoom
-            if(gMap.Zoom > 7)
+
+            if(gMap.Zoom >= 5)
             {
-                clutterAmount = 1;
+                clutterAmount = 0;
+            }
+            else if (gMap.Zoom >= 3)
+            {
+                clutterAmount = 3;
+            }
+            else if (gMap.Zoom >= 1)
+            {
+                clutterAmount = 8;
             }
             else
             {
-                clutterAmount = 20;
+                clutterAmount = 12;
             }
 
             //For each point already on the map check it against the point that is about to be added
