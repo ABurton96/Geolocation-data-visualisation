@@ -60,9 +60,10 @@ namespace Derivco
         {
             Random random = new Random();
 
+            //Checks if the event database has already been created
             if (!File.Exists("Events.sqlite"))
-            // if (true)
             {
+                //If its not created then create the database and fill it with tables
                 SQLiteConnection.CreateFile("Events.sqlite");
 
                 dbConnect = new SQLiteConnection("Data Source=Events.sqlite;Version=3;");
@@ -100,7 +101,6 @@ namespace Derivco
                     //Inserts data into SQL database
                     string eventString = "insert into " + allEvents.action;
                     eventString += "(user, action, latitude, longitude, date) values(@username, @act, @lat, @long, @date)";
-                    //SQLiteCommand eventInsert = new SQLiteCommand("insert into event (user, action, latitude, longitude) values (@username, @act, @lat, @long);", dbConnect);
 
                     SQLiteCommand eventInsert = new SQLiteCommand(eventString, dbConnect);
 
@@ -111,13 +111,11 @@ namespace Derivco
                     eventInsert.Parameters.AddWithValue("@date", allEvents.date);
 
                     eventInsert.ExecuteNonQuery();
-
-                    //Console.WriteLine(i.ToString());
-                    //allEventsList.Add(allEvents);
                 }
             }
             else
             {
+                //If database has been created then load it
                 dbConnect = new SQLiteConnection("Data Source=Events.sqlite;Version=3;");
                 dbConnect.Open();
             }
@@ -129,6 +127,7 @@ namespace Derivco
             return randomDouble.NextDouble() * (max - min) + min;
         }
 
+        //Gets a random date between now and start of previous month
         public DateTime GetRandomDate()
         {
             DateTime date;
@@ -186,6 +185,7 @@ namespace Derivco
             markersToAdd.Clear();
 
             #region LoggedIn
+            //Checks if checkbox is ticked
             if (loggedInCheckBox.Checked == true)
             {
                 bool userCheck = false;
@@ -194,7 +194,7 @@ namespace Derivco
                 {
                     userCheck = true;
                 }
-
+                //Builds query
                 string query = "select * from loggedIn ";
 
                 if (userCheck)
@@ -206,10 +206,11 @@ namespace Derivco
                     query += ";";
                 }
 
+                //Sends query to databse
                 SQLiteCommand command = new SQLiteCommand(query, dbConnect);
                 SQLiteDataReader reader = command.ExecuteReader();
 
-
+                //Waits while database is read. Checking each return to see if it matches the search criteria
                 while (reader.Read())
                 {
                     GMarkerGoogleType markerColour = GMarkerGoogleType.lightblue_pushpin;
@@ -240,8 +241,6 @@ namespace Derivco
                             currentMarker.clutter = check.Item2;
                             markersToAdd.Add(currentMarker);
                         }
-                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        //markers.Markers.Add(marker);
                     }
                 }
             }
@@ -249,6 +248,7 @@ namespace Derivco
             #endregion
 
             #region LoggedOut
+            //Checks if checkbox is ticked
             if (loggedOutCheckBox.Checked == true)
             {
                 bool userCheck = false;
@@ -257,7 +257,7 @@ namespace Derivco
                 {
                     userCheck = true;
                 }
-
+                //Builds query
                 string query = "select * from loggedOut ";
 
                 if (userCheck)
@@ -268,10 +268,11 @@ namespace Derivco
                 {
                     query += ";";
                 }
-
+                //Sends query to databse
                 SQLiteCommand command = new SQLiteCommand(query, dbConnect);
                 SQLiteDataReader reader = command.ExecuteReader();
 
+                //Waits while database is read. Checking each return to see if it matches the search criteria
                 while (reader.Read())
                 {
                     GMarkerGoogleType markerColour = GMarkerGoogleType.purple_pushpin;
@@ -302,9 +303,6 @@ namespace Derivco
                             currentMarker.clutter = check.Item2;
                             markersToAdd.Add(currentMarker);
                         }
-
-                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        //markers.Markers.Add(marker);
                     }
                 }
             }
@@ -312,6 +310,7 @@ namespace Derivco
             #endregion
 
             #region PlayedGame
+            //Checks if checkbox is ticked
             if (playedGameCheckBox.Checked == true)
             {
                 bool userCheck = false;
@@ -320,7 +319,7 @@ namespace Derivco
                 {
                     userCheck = true;
                 }
-
+                //Builds query
                 string query = "select * from playedGame ";
 
                 if (userCheck)
@@ -331,10 +330,11 @@ namespace Derivco
                 {
                     query += ";";
                 }
-
+                //Sends query to databse
                 SQLiteCommand command = new SQLiteCommand(query, dbConnect);
                 SQLiteDataReader reader = command.ExecuteReader();
 
+                //Waits while database is read. Checking each return to see if it matches the search criteria
                 while (reader.Read())
                 {
                     GMarkerGoogleType markerColour = GMarkerGoogleType.green_pushpin;
@@ -365,8 +365,6 @@ namespace Derivco
                             currentMarker.clutter = check.Item2;
                             markersToAdd.Add(currentMarker);
                         }
-                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        //markers.Markers.Add(marker);
                     }
                 }
             }
@@ -374,6 +372,7 @@ namespace Derivco
             #endregion
 
             #region WatchedAdvert
+            //Checks if checkbox is ticked
             if (watchedAdvertCheckBox.Checked == true)
             {
                 bool userCheck = false;
@@ -382,7 +381,7 @@ namespace Derivco
                 {
                     userCheck = true;
                 }
-
+                //Builds query
                 string query = "select * from watchedAdvert ";
 
                 if (userCheck)
@@ -393,10 +392,11 @@ namespace Derivco
                 {
                     query += ";";
                 }
-
+                //Sends query to databse
                 SQLiteCommand command = new SQLiteCommand(query, dbConnect);
                 SQLiteDataReader reader = command.ExecuteReader();
 
+                //Waits while database is read. Checking each return to see if it matches the search criteria
                 while (reader.Read())
                 {
                     GMarkerGoogleType markerColour = GMarkerGoogleType.pink_pushpin;
@@ -427,8 +427,6 @@ namespace Derivco
                             currentMarker.clutter = check.Item2;
                             markersToAdd.Add(currentMarker);
                         }
-                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        //markers.Markers.Add(marker);
                     }
                 }
             }
@@ -436,6 +434,7 @@ namespace Derivco
             #endregion
 
             #region PurcahsedItem
+            //Checks if checkbox is ticked
             if (purchasedItemCheckBox.Checked == true)
             {
                 bool userCheck = false;
@@ -444,7 +443,7 @@ namespace Derivco
                 {
                     userCheck = true;
                 }
-
+                //Builds query
                 string query = "select * from purchasedItem ";
 
                 if (userCheck)
@@ -455,10 +454,11 @@ namespace Derivco
                 {
                     query += ";";
                 }
-
+                //Sends query to databse
                 SQLiteCommand command = new SQLiteCommand(query, dbConnect);
                 SQLiteDataReader reader = command.ExecuteReader();
 
+                //Waits while database is read. Checking each return to see if it matches the search criteria
                 while (reader.Read())
                 {
                     GMarkerGoogleType markerColour = GMarkerGoogleType.yellow_pushpin;
@@ -489,14 +489,13 @@ namespace Derivco
                             currentMarker.clutter = check.Item2;
                             markersToAdd.Add(currentMarker);
                         }
-                        //GMapMarker marker = new GMarkerGoogle(new PointLatLng(latitude, longitude), markerColour);
-                        //markers.Markers.Add(marker);
                     }
                 }
             }
 
             #endregion
 
+            //Takes all returned data (That was applicable to the search criteria) and checks for clutter
             for (int i = 0; i < markersToAdd.Count - 1; i ++)
             {
                 if(markersToAdd[i].clutter > 0)
@@ -518,11 +517,13 @@ namespace Derivco
             gMap.Zoom = zoomLevel;
         }
 
+
         public Tuple<bool, int> PlaceMarker(double lat, double lon)
         {
 
             int clutterAmount;
 
+            //Checks current map zoom
             if(gMap.Zoom > 7)
             {
                 clutterAmount = 1;
@@ -532,7 +533,7 @@ namespace Derivco
                 clutterAmount = 20;
             }
 
-
+            //For each point already on the map check it against the point that is about to be added
             for (int j = 0; j < markersToAdd.Count - 1; j++)
             {
                 int clutter = markersToAdd[j].clutter;
@@ -546,6 +547,7 @@ namespace Derivco
             return Tuple.Create(false, 0);
         }
 
+        //Check to see if the time of the event happened within the search time
         public bool InTime(TimeSpan time)
         {
             bool addMarker = false;
