@@ -20,10 +20,19 @@ namespace Derivco
     public partial class Form1 : Form
     {
 
+        public enum Event {
+            LoggedIn = 0,
+            LoggedOut,
+            PlayedGame,
+            WatchedAdvert,
+            PurchasedItem,
+            All
+        }
+
         public class AllEvents
         {
             public string username;
-            public string action;
+            public Event action;
             public double latitude;
             public double longitude;
             public DateTime date;
@@ -36,12 +45,6 @@ namespace Derivco
             public GMarkerGoogleType markerColour2;
             public int clutter;
         }
-
-        enum userAction { LoggedIn, LoggedOut };
-        enum gameAction { PlayedGame, WatchedAdvert, PurchasedItem };
-
-        String[] userAction2 = { "LoggedIn", "LoggedOut" };
-        String[] gameAction2 = { "PlayedGame", "WatchedAdvert", "PurchasedItem" };
 
         List<AllEvents> allEventsList = new List<AllEvents>();
         List<Markers> markersToAdd = new List<Markers>();
@@ -71,20 +74,8 @@ namespace Derivco
                 dbConnect = new SQLiteConnection("Data Source=Events.sqlite;Version=3;");
                 dbConnect.Open();
 
-                SQLiteCommand commandLoggedIn = new SQLiteCommand("create table LoggedIn (user varchar(10), action varchar(20), latitude float, longitude float, date datetime)", dbConnect);
+                SQLiteCommand commandLoggedIn = new SQLiteCommand("create table Events (user int, action varchar(10), latitude float, longitude float, date datetime)", dbConnect);
                 commandLoggedIn.ExecuteNonQuery();
-
-                SQLiteCommand commandLoggedOut = new SQLiteCommand("create table LoggedOut (user varchar(10), action varchar(20), latitude float, longitude float, date datetime)", dbConnect);
-                commandLoggedOut.ExecuteNonQuery();
-
-                SQLiteCommand commandPlayedGame = new SQLiteCommand("create table PlayedGame (user varchar(10), action varchar(20), latitude float, longitude float, date datetime)", dbConnect);
-                commandPlayedGame.ExecuteNonQuery();
-
-                SQLiteCommand commandWatchedAdvert = new SQLiteCommand("create table WatchedAdvert (user varchar(10), action varchar(20), latitude float, longitude float, date datetime)", dbConnect);
-                commandWatchedAdvert.ExecuteNonQuery();
-
-                SQLiteCommand commandPurchasedItem = new SQLiteCommand("create table PurchasedItem (user varchar(10), action varchar(20), latitude float, longitude float, date datetime)", dbConnect);
-                commandPurchasedItem.ExecuteNonQuery();
 
                 //Runs loop 10,000 times to fill list with random events, locations and different users
                 for (int i = 0; i < 10000; i++)
@@ -101,8 +92,8 @@ namespace Derivco
                     allEvents.date = GetRandomDate();
 
                     //Inserts data into SQL database
-                    string eventString = "insert into " + allEvents.action;
-                    eventString += "(user, action, latitude, longitude, date) values(@username, @act, @lat, @long, @date)";
+                    string eventString = "";
+                    eventString += "insert into Events (user, action, latitude, longitude, date) values(@username, @act, @lat, @long, @date)";
 
                     SQLiteCommand eventInsert = new SQLiteCommand(eventString, dbConnect);
 
@@ -149,39 +140,13 @@ namespace Derivco
             return date;
         }
 
-        public String GetAction()
+        public Event GetAction()
         {
             Random random = new Random();
             //Returns a randomly selects either a random userAction or gameAction.
-            int ran = randomDouble.Next(2);
+            int ran = randomDouble.Next((int)Event.All);
 
-            if (ran == 0)
-            {
-                ran = randomDouble.Next(userAction2.Length);
-
-                switch (ran)
-                {
-                    case 0:
-                        return userAction2[0];
-                    case 1:
-                        return userAction2[1];
-                }
-            }
-            else
-            {
-                ran = randomDouble.Next(gameAction2.Length);
-
-                switch (ran)
-                {
-                    case 0:
-                        return gameAction2[0];
-                    case 1:
-                        return gameAction2[1];
-                    case 2:
-                        return gameAction2[2];
-                }
-            }
-            return String.Empty;
+            return (Event)ran;
         }
 
         private void confirmButton_Click(object sender, EventArgs e)
@@ -191,284 +156,85 @@ namespace Derivco
             gMap.Overlays.Clear();
             markersToAdd.Clear();
 
-            #region LoggedIn
+            string queryExample = "SELECT * FROM Events";
+            List<string> options = new List<string>();
+            string quote = "\"";
+
             //Checks if checkbox is ticked
             if (loggedInCheckBox.Checked == true)
             {
-                bool userCheck = false;
-
-                if (usernameTextBox.Text != String.Empty)
-                {
-                    userCheck = true;
-                }
-                //Builds query
-                string query = "select * from loggedIn ";
-
-                if (userCheck)
-                {
-                    query += "where user = " + usernameTextBox.Text + " ;";
-                }
-                else
-                {
-                    query += ";";
-                }
-
-                //Sends query to databse
-                SQLiteCommand command = new SQLiteCommand(query, dbConnect);
-                SQLiteDataReader reader = command.ExecuteReader();
-
-                //Waits while database is read. Checking each return to see if it matches the search criteria
-                while (reader.Read())
-                {
-                    GMarkerGoogleType markerColour = GMarkerGoogleType.lightblue_pushpin;
-
-                    TimeSpan diff;
-
-                    diff = currentDate - DateTime.Parse(reader["date"].ToString());
-
-                    if (InTime(diff))
-                    {
-                        double latitude = double.Parse(reader["latitude"].ToString());
-                        double longitude = double.Parse(reader["longitude"].ToString());
-
-                        Markers currentMarker = new Markers();
-
-                        currentMarker.latitude = latitude;
-                        currentMarker.longitude = longitude;
-                        currentMarker.markerColour2 = markerColour;
-
-                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
-
-                        if (check.Item1)
-                        {
-                            markersToAdd.Add(currentMarker);
-                        }
-                        else
-                        {
-                            currentMarker.clutter = check.Item2;
-                            markersToAdd.Add(currentMarker);
-                        }
-                    }
-                }
+                options.Add("action = " + quote + Event.LoggedIn.ToString() + quote);
             }
 
-            #endregion
-
-            #region LoggedOut
-            //Checks if checkbox is ticked
             if (loggedOutCheckBox.Checked == true)
             {
-                bool userCheck = false;
-
-                if (usernameTextBox.Text != String.Empty)
-                {
-                    userCheck = true;
-                }
-                //Builds query
-                string query = "select * from loggedOut ";
-
-                if (userCheck)
-                {
-                    query += "where user = " + usernameTextBox.Text + " ;";
-                }
-                else
-                {
-                    query += ";";
-                }
-                //Sends query to databse
-                SQLiteCommand command = new SQLiteCommand(query, dbConnect);
-                SQLiteDataReader reader = command.ExecuteReader();
-
-                //Waits while database is read. Checking each return to see if it matches the search criteria
-                while (reader.Read())
-                {
-                    GMarkerGoogleType markerColour = GMarkerGoogleType.purple_pushpin;
-
-                    TimeSpan diff;
-
-                    diff = currentDate - DateTime.Parse(reader["date"].ToString());
-
-                    if (InTime(diff))
-                    {
-                        double latitude = double.Parse(reader["latitude"].ToString());
-                        double longitude = double.Parse(reader["longitude"].ToString());
-
-                        Markers currentMarker = new Markers();
-
-                        currentMarker.latitude = latitude;
-                        currentMarker.longitude = longitude;
-                        currentMarker.markerColour2 = markerColour;
-
-                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
-
-                        if (check.Item1)
-                        {
-                            markersToAdd.Add(currentMarker);
-                        }
-                        else
-                        {
-                            currentMarker.clutter = check.Item2;
-                            markersToAdd.Add(currentMarker);
-                        }
-                    }
-                }
+                options.Add("action = " + quote + Event.LoggedOut.ToString() + quote);
             }
 
-            #endregion
-
-            #region PlayedGame
-            //Checks if checkbox is ticked
             if (playedGameCheckBox.Checked == true)
             {
-                bool userCheck = false;
-
-                if (usernameTextBox.Text != String.Empty)
-                {
-                    userCheck = true;
-                }
-                //Builds query
-                string query = "select * from playedGame ";
-
-                if (userCheck)
-                {
-                    query += "where user = " + usernameTextBox.Text + " ;";
-                }
-                else
-                {
-                    query += ";";
-                }
-                //Sends query to databse
-                SQLiteCommand command = new SQLiteCommand(query, dbConnect);
-                SQLiteDataReader reader = command.ExecuteReader();
-
-                //Waits while database is read. Checking each return to see if it matches the search criteria
-                while (reader.Read())
-                {
-                    GMarkerGoogleType markerColour = GMarkerGoogleType.green_pushpin;
-
-                    TimeSpan diff;
-
-                    diff = currentDate - DateTime.Parse(reader["date"].ToString());
-
-                    if (InTime(diff))
-                    {
-                        double latitude = double.Parse(reader["latitude"].ToString());
-                        double longitude = double.Parse(reader["longitude"].ToString());
-
-                        Markers currentMarker = new Markers();
-
-                        currentMarker.latitude = latitude;
-                        currentMarker.longitude = longitude;
-                        currentMarker.markerColour2 = markerColour;
-
-                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
-
-                        if (check.Item1)
-                        {
-                            markersToAdd.Add(currentMarker);
-                        }
-                        else
-                        {
-                            currentMarker.clutter = check.Item2;
-                            markersToAdd.Add(currentMarker);
-                        }
-                    }
-                }
+                options.Add("action = " + quote + Event.PlayedGame.ToString() + quote);
             }
-
-            #endregion
-
-            #region WatchedAdvert
-            //Checks if checkbox is ticked
+            
             if (watchedAdvertCheckBox.Checked == true)
             {
-                bool userCheck = false;
-
-                if (usernameTextBox.Text != String.Empty)
-                {
-                    userCheck = true;
-                }
-                //Builds query
-                string query = "select * from watchedAdvert ";
-
-                if (userCheck)
-                {
-                    query += "where user = " + usernameTextBox.Text + " ;";
-                }
-                else
-                {
-                    query += ";";
-                }
-                //Sends query to databse
-                SQLiteCommand command = new SQLiteCommand(query, dbConnect);
-                SQLiteDataReader reader = command.ExecuteReader();
-
-                //Waits while database is read. Checking each return to see if it matches the search criteria
-                while (reader.Read())
-                {
-                    GMarkerGoogleType markerColour = GMarkerGoogleType.pink_pushpin;
-
-                    TimeSpan diff;
-
-                    diff = currentDate - DateTime.Parse(reader["date"].ToString());
-
-                    if (InTime(diff))
-                    {
-                        double latitude = double.Parse(reader["latitude"].ToString());
-                        double longitude = double.Parse(reader["longitude"].ToString());
-
-                        Markers currentMarker = new Markers();
-
-                        currentMarker.latitude = latitude;
-                        currentMarker.longitude = longitude;
-                        currentMarker.markerColour2 = markerColour;
-
-                        Tuple<bool, int> check = PlaceMarker(currentMarker.latitude, currentMarker.longitude);
-
-                        if (check.Item1)
-                        {
-                            markersToAdd.Add(currentMarker);
-                        }
-                        else
-                        {
-                            currentMarker.clutter = check.Item2;
-                            markersToAdd.Add(currentMarker);
-                        }
-                    }
-                }
+                options.Add("action = " + quote + Event.WatchedAdvert.ToString() + quote);
             }
 
-            #endregion
-
-            #region PurcahsedItem
-            //Checks if checkbox is ticked
             if (purchasedItemCheckBox.Checked == true)
             {
-                bool userCheck = false;
+                options.Add("action = " + quote + Event.PurchasedItem.ToString() + quote);
+            }
 
-                if (usernameTextBox.Text != String.Empty)
-                {
-                    userCheck = true;
-                }
-                //Builds query
-                string query = "select * from purchasedItem ";
+            bool addedOptions = false;
 
-                if (userCheck)
-                {
-                    query += "where user = " + usernameTextBox.Text + " ;";
+            if (options.Count > 0) {
+
+                string queryAddon = "(";
+
+                for (int i = 0; i < options.Count; i++) {
+                    string item = options[i];
+                    queryAddon += item;
+
+                    if ( i != options.Count - 1)
+                    {
+                        queryAddon += " OR ";
+                    }
                 }
+
+                queryAddon += ")";
+
+                queryExample += " WHERE " + queryAddon;
+
+                addedOptions = true;
+            }
+
+            bool addedName = false;
+
+            // check if user specified:
+            if ( usernameTextBox.Text != string.Empty)
+            {
+                if (addedOptions)
+                    queryExample += " AND ";
                 else
-                {
-                    query += ";";
-                }
+                    queryExample += " WHERE ";
+
+                queryExample += "user = " + usernameTextBox.Text;
+                addedName = true;
+            }
+
+            queryExample += ";";
+
+            if (addedOptions && addedName || addedOptions)
+            {
                 //Sends query to databse
-                SQLiteCommand command = new SQLiteCommand(query, dbConnect);
+                SQLiteCommand command = new SQLiteCommand(queryExample, dbConnect);
                 SQLiteDataReader reader = command.ExecuteReader();
 
                 //Waits while database is read. Checking each return to see if it matches the search criteria
                 while (reader.Read())
                 {
-                    GMarkerGoogleType markerColour = GMarkerGoogleType.yellow_pushpin;
+                    GMarkerGoogleType markerColour = GetColour(reader["action"].ToString());
 
                     TimeSpan diff;
 
@@ -499,8 +265,6 @@ namespace Derivco
                     }
                 }
             }
-
-            #endregion
 
             //Takes all returned data (That was applicable to the search criteria) and checks for clutter
             for (int i = 0; i < markersToAdd.Count - 1; i ++)
@@ -510,7 +274,8 @@ namespace Derivco
                     markersToAdd[i].markerColour2 = GMarkerGoogleType.orange_dot;
                 }
                 GMapMarker marker = new GMarkerGoogle(new PointLatLng(markersToAdd[i].latitude, markersToAdd[i].longitude), markersToAdd[i].markerColour2);
-                marker.ToolTipText = "Amount of points: " + markersToAdd[i].clutter.ToString();
+                if(markersToAdd[i].clutter > 0)
+                    marker.ToolTipText = "Amount of points: " + (markersToAdd[i].clutter + 1).ToString();
                 markers.Markers.Add(marker);
             }
 
@@ -525,14 +290,26 @@ namespace Derivco
         }
 
 
+        //Returns marker colour
+        public GMarkerGoogleType GetColour(string actionName)
+        {
+            switch(actionName)
+            {
+                case "LoggedIn": return GMarkerGoogleType.lightblue_pushpin;
+                case "LoggedOut": return GMarkerGoogleType.green_pushpin;
+                case "PlayedGame": return GMarkerGoogleType.red_pushpin;
+                case "WatchedAdvert": return GMarkerGoogleType.yellow_pushpin;
+                case "PurchasedItem": return GMarkerGoogleType.blue_pushpin;
+            }
+            return GMarkerGoogleType.orange;
+        }
+
         public Tuple<bool, int> PlaceMarker(double lat, double lon)
         {
 
             int clutterAmount;
-          //  Console.WriteLine(gMap.Zoom.ToString());
 
             //Checks current map zoom
-
             if(gMap.Zoom >= 5)
             {
                 clutterAmount = 0;

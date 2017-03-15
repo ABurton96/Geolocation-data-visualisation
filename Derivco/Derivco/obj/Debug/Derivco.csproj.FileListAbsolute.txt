@@ -76,3 +76,18 @@ C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\
 C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\Debug\Derivco.Form1.resources
 C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\Debug\Derivco.Properties.Resources.resources
 C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\Debug\Derivco.csproj.GenerateResource.Cache
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\Derivco.exe.config
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\obj\Debug\Derivco.exe
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\obj\Debug\Derivco.pdb
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\Derivco.exe
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\Derivco.pdb
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\System.Data.SQLite.dll
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\GMap.NET.Core.xml
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\GMap.NET.WindowsForms.xml
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\System.Data.SQLite.xml
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\obj\Debug\Derivco.csprojResolveAssemblyReference.cache
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\obj\Debug\Derivco.Form1.resources
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\obj\Debug\Derivco.Properties.Resources.resources
+F:\Uni\Year 3\Design Masterclass\Derivco\Derivco\obj\Debug\Derivco.csproj.GenerateResource.Cache
+D:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\System.Data.SQLite.dll
+D:\Uni\Year 3\Design Masterclass\Derivco\Derivco\bin\Debug\System.Data.SQLite.xml
