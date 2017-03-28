@@ -105,6 +105,12 @@ namespace Derivco
 
                     eventInsert.ExecuteNonQuery();
                 }
+
+
+                for (int i = 0; i < (int)Event.All; i++)
+                {
+                    ActionSelection.Items.Add("");
+                }
             }
             else
             {
@@ -240,7 +246,7 @@ namespace Derivco
 
                     diff = currentDate - DateTime.Parse(reader["date"].ToString());
 
-                    if (InTime(diff))
+                    if (InTime(DateTime.Parse(reader["date"].ToString())))
                     {
                         double latitude = double.Parse(reader["latitude"].ToString());
                         double longitude = double.Parse(reader["longitude"].ToString());
@@ -342,27 +348,14 @@ namespace Derivco
         }
 
         //Check to see if the time of the event happened within the search time
-        public bool InTime(TimeSpan time)
+        public bool InTime(DateTime time)
         {
             bool addMarker = false;
 
-            if (anyRadioButton.Checked)
+
+            if (time > dateTimeFrom.Value && time < dateTimeTo.Value)
             {
-                addMarker = true;
-            }
-            else if (monthRadioButton.Checked)
-            {
-                if (time.TotalDays <= 30)
-                {
-                    addMarker = true;
-                }
-            }
-            else if (weekRadioButton.Checked)
-            {
-                if (time.TotalDays <= 7)
-                {
-                    addMarker = true;
-                }
+                return true;
             }
 
             return addMarker;

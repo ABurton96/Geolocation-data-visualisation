@@ -40,14 +40,11 @@
             this.playedGameCheckBox = new System.Windows.Forms.CheckBox();
             this.gameActionCheckBox = new System.Windows.Forms.CheckBox();
             this.purchasedItemCheckBox = new System.Windows.Forms.CheckBox();
-            this.weekRadioButton = new System.Windows.Forms.RadioButton();
-            this.monthRadioButton = new System.Windows.Forms.RadioButton();
-            this.anyRadioButton = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimeFrom = new System.Windows.Forms.DateTimePicker();
+            this.dateTimeTo = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.ActionSelection = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // confirmButton
@@ -191,66 +188,24 @@
             this.purchasedItemCheckBox.Text = "Purchased Item";
             this.purchasedItemCheckBox.UseVisualStyleBackColor = true;
             // 
-            // weekRadioButton
+            // dateTimeFrom
             // 
-            this.weekRadioButton.AutoSize = true;
-            this.weekRadioButton.Location = new System.Drawing.Point(33, 356);
-            this.weekRadioButton.Name = "weekRadioButton";
-            this.weekRadioButton.Size = new System.Drawing.Size(54, 17);
-            this.weekRadioButton.TabIndex = 13;
-            this.weekRadioButton.Text = "Week";
-            this.weekRadioButton.UseVisualStyleBackColor = true;
+            this.dateTimeFrom.Location = new System.Drawing.Point(12, 320);
+            this.dateTimeFrom.Name = "dateTimeFrom";
+            this.dateTimeFrom.Size = new System.Drawing.Size(122, 20);
+            this.dateTimeFrom.TabIndex = 17;
             // 
-            // monthRadioButton
+            // dateTimeTo
             // 
-            this.monthRadioButton.AutoSize = true;
-            this.monthRadioButton.Location = new System.Drawing.Point(33, 333);
-            this.monthRadioButton.Name = "monthRadioButton";
-            this.monthRadioButton.Size = new System.Drawing.Size(55, 17);
-            this.monthRadioButton.TabIndex = 14;
-            this.monthRadioButton.Text = "Month";
-            this.monthRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // anyRadioButton
-            // 
-            this.anyRadioButton.AutoSize = true;
-            this.anyRadioButton.Checked = true;
-            this.anyRadioButton.Location = new System.Drawing.Point(34, 310);
-            this.anyRadioButton.Name = "anyRadioButton";
-            this.anyRadioButton.Size = new System.Drawing.Size(43, 17);
-            this.anyRadioButton.TabIndex = 15;
-            this.anyRadioButton.TabStop = true;
-            this.anyRadioButton.Text = "Any";
-            this.anyRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 294);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Time Span:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(12, 392);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePicker1.TabIndex = 17;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(12, 435);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePicker2.TabIndex = 18;
+            this.dateTimeTo.Location = new System.Drawing.Point(12, 363);
+            this.dateTimeTo.Name = "dateTimeTo";
+            this.dateTimeTo.Size = new System.Drawing.Size(122, 20);
+            this.dateTimeTo.TabIndex = 18;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 376);
+            this.label3.Location = new System.Drawing.Point(12, 304);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 19;
@@ -260,26 +215,31 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 419);
+            this.label4.Location = new System.Drawing.Point(12, 347);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(23, 13);
             this.label4.TabIndex = 20;
             this.label4.Text = "To:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // ActionSelection
+            // 
+            this.ActionSelection.FormattingEnabled = true;
+            this.ActionSelection.Location = new System.Drawing.Point(12, 70);
+            this.ActionSelection.Name = "ActionSelection";
+            this.ActionSelection.Size = new System.Drawing.Size(126, 21);
+            this.ActionSelection.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1026, 583);
+            this.Controls.Add(this.ActionSelection);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.anyRadioButton);
-            this.Controls.Add(this.monthRadioButton);
-            this.Controls.Add(this.weekRadioButton);
+            this.Controls.Add(this.dateTimeTo);
+            this.Controls.Add(this.dateTimeFrom);
             this.Controls.Add(this.purchasedItemCheckBox);
             this.Controls.Add(this.watchedAdvertCheckBox);
             this.Controls.Add(this.playedGameCheckBox);
@@ -314,14 +274,11 @@
         private System.Windows.Forms.CheckBox playedGameCheckBox;
         private System.Windows.Forms.CheckBox gameActionCheckBox;
         private System.Windows.Forms.CheckBox purchasedItemCheckBox;
-        private System.Windows.Forms.RadioButton weekRadioButton;
-        private System.Windows.Forms.RadioButton monthRadioButton;
-        private System.Windows.Forms.RadioButton anyRadioButton;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimeFrom;
+        private System.Windows.Forms.DateTimePicker dateTimeTo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox ActionSelection;
     }
 }
 
