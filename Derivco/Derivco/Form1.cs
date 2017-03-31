@@ -105,12 +105,6 @@ namespace Derivco
 
                     eventInsert.ExecuteNonQuery();
                 }
-
-
-                for (int i = 0; i < (int)Event.All; i++)
-                {
-                    ActionSelection.Items.Add("");
-                }
             }
             else
             {
@@ -118,6 +112,14 @@ namespace Derivco
                 dbConnect = new SQLiteConnection("Data Source=Events.sqlite;Version=3;");
                 dbConnect.Open();
             }
+
+            // for (int i = 0; i < (int)Event.All; i++)
+            foreach (Event events in Enum.GetValues(typeof(Event)))
+            {
+                ActionSelection.Items.Add(events.ToString());
+            }
+
+            ActionSelection.Text = "All";
         }
 
         private void Form1_MouseWheel(object sender, MouseEventArgs e)
@@ -166,30 +168,9 @@ namespace Derivco
             List<string> options = new List<string>();
             string quote = "\"";
 
-            //Checks if checkbox is ticked
-            if (loggedInCheckBox.Checked == true)
+            if(ActionSelection.Text != "All")
             {
-                options.Add("action = " + quote + Event.LoggedIn.ToString() + quote);
-            }
-
-            if (loggedOutCheckBox.Checked == true)
-            {
-                options.Add("action = " + quote + Event.LoggedOut.ToString() + quote);
-            }
-
-            if (playedGameCheckBox.Checked == true)
-            {
-                options.Add("action = " + quote + Event.PlayedGame.ToString() + quote);
-            }
-            
-            if (watchedAdvertCheckBox.Checked == true)
-            {
-                options.Add("action = " + quote + Event.WatchedAdvert.ToString() + quote);
-            }
-
-            if (purchasedItemCheckBox.Checked == true)
-            {
-                options.Add("action = " + quote + Event.PurchasedItem.ToString() + quote);
+                options.Add("action = " + quote + ActionSelection.Text + quote);
             }
 
             bool addedOptions = false;
@@ -215,10 +196,8 @@ namespace Derivco
                 addedOptions = true;
             }
 
-            bool addedName = false;
-
             // check if user specified:
-            if ( usernameTextBox.Text != string.Empty)
+            if (usernameTextBox.Text != string.Empty)
             {
                 if (addedOptions)
                     queryExample += " AND ";
@@ -226,13 +205,10 @@ namespace Derivco
                     queryExample += " WHERE ";
 
                 queryExample += "user = " + usernameTextBox.Text;
-                addedName = true;
             }
 
             queryExample += ";";
 
-            if (addedOptions && addedName || addedOptions)
-            {
                 //Sends query to databse
                 SQLiteCommand command = new SQLiteCommand(queryExample, dbConnect);
                 SQLiteDataReader reader = command.ExecuteReader();
@@ -270,10 +246,9 @@ namespace Derivco
                         }
                     }
                 }
-            }
 
             //Takes all returned data (That was applicable to the search criteria) and checks for clutter
-            for (int i = 0; i < markersToAdd.Count - 1; i ++)
+            for (int i = 0; i < markersToAdd.Count ; i ++)
             {
                 if(markersToAdd[i].clutter > 0)
                 {
@@ -312,7 +287,6 @@ namespace Derivco
 
         public Tuple<bool, int> PlaceMarker(double lat, double lon)
         {
-
             int clutterAmount;
 
             //Checks current map zoom
@@ -368,48 +342,6 @@ namespace Derivco
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             gMap.ShowCenter = false;
             gMap.SetPositionByKeywords("University Of Suffolk, Ipswich");
-        }
-
-        //If gameAction check box is/isn't checks set other check boxs acordingly 
-        private void gameActionCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (gameActionCheckBox.Checked == true)
-            {
-                playedGameCheckBox.Enabled = true;
-                watchedAdvertCheckBox.Enabled = true;
-                purchasedItemCheckBox.Enabled = true;
-                playedGameCheckBox.Checked = true;
-                watchedAdvertCheckBox.Checked = true;
-                purchasedItemCheckBox.Checked = true;
-            }
-            else
-            {
-                playedGameCheckBox.Checked = false;
-                watchedAdvertCheckBox.Checked = false;
-                purchasedItemCheckBox.Checked = false;
-                playedGameCheckBox.Enabled = false;
-                watchedAdvertCheckBox.Enabled = false;
-                purchasedItemCheckBox.Enabled = false;
-            }
-        }
-
-        //If userAction check box is/isn't checks set other check boxs acordingly 
-        private void userActionCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (userActionCheckBox.Checked == true)
-            {
-                loggedInCheckBox.Enabled = true;
-                loggedOutCheckBox.Enabled = true;
-                loggedInCheckBox.Checked = true;
-                loggedOutCheckBox.Checked = true;
-            }
-            else
-            {
-                loggedInCheckBox.Checked = false;
-                loggedOutCheckBox.Checked = false;
-                loggedInCheckBox.Enabled = false;
-                loggedOutCheckBox.Enabled = false;
-            }
         }
     }
 }

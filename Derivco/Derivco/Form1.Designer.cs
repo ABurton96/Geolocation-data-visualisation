@@ -32,24 +32,17 @@
             this.gMap = new GMap.NET.WindowsForms.GMapControl();
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.usenameLabel = new System.Windows.Forms.Label();
-            this.userActionCheckBox = new System.Windows.Forms.CheckBox();
-            this.loggedInCheckBox = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.loggedOutCheckBox = new System.Windows.Forms.CheckBox();
-            this.watchedAdvertCheckBox = new System.Windows.Forms.CheckBox();
-            this.playedGameCheckBox = new System.Windows.Forms.CheckBox();
-            this.gameActionCheckBox = new System.Windows.Forms.CheckBox();
-            this.purchasedItemCheckBox = new System.Windows.Forms.CheckBox();
             this.dateTimeFrom = new System.Windows.Forms.DateTimePicker();
             this.dateTimeTo = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.ActionSelection = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(8, 461);
+            this.confirmButton.Location = new System.Drawing.Point(12, 317);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(126, 59);
             this.confirmButton.TabIndex = 0;
@@ -101,27 +94,49 @@
             this.usenameLabel.Text = "User ID Search:";
             this.usenameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // userActionCheckBox
+            // dateTimeFrom
             // 
-            this.userActionCheckBox.AutoSize = true;
-            this.userActionCheckBox.Location = new System.Drawing.Point(12, 118);
-            this.userActionCheckBox.Name = "userActionCheckBox";
-            this.userActionCheckBox.Size = new System.Drawing.Size(81, 17);
-            this.userActionCheckBox.TabIndex = 5;
-            this.userActionCheckBox.Text = "User Action";
-            this.userActionCheckBox.UseVisualStyleBackColor = true;
-            this.userActionCheckBox.CheckedChanged += new System.EventHandler(this.userActionCheckBox_CheckedChanged);
+            this.dateTimeFrom.Location = new System.Drawing.Point(12, 197);
+            this.dateTimeFrom.Name = "dateTimeFrom";
+            this.dateTimeFrom.Size = new System.Drawing.Size(122, 20);
+            this.dateTimeFrom.TabIndex = 17;
+            this.dateTimeFrom.Value = new System.DateTime(2017, 1, 1, 0, 0, 0, 0);
             // 
-            // loggedInCheckBox
+            // dateTimeTo
             // 
-            this.loggedInCheckBox.AutoSize = true;
-            this.loggedInCheckBox.Enabled = false;
-            this.loggedInCheckBox.Location = new System.Drawing.Point(34, 141);
-            this.loggedInCheckBox.Name = "loggedInCheckBox";
-            this.loggedInCheckBox.Size = new System.Drawing.Size(74, 17);
-            this.loggedInCheckBox.TabIndex = 6;
-            this.loggedInCheckBox.Text = "Logged In";
-            this.loggedInCheckBox.UseVisualStyleBackColor = true;
+            this.dateTimeTo.Location = new System.Drawing.Point(12, 240);
+            this.dateTimeTo.Name = "dateTimeTo";
+            this.dateTimeTo.Size = new System.Drawing.Size(122, 20);
+            this.dateTimeTo.TabIndex = 18;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 181);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "From:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 224);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(23, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "To:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ActionSelection
+            // 
+            this.ActionSelection.FormattingEnabled = true;
+            this.ActionSelection.ItemHeight = 13;
+            this.ActionSelection.Location = new System.Drawing.Point(12, 118);
+            this.ActionSelection.Name = "ActionSelection";
+            this.ActionSelection.Size = new System.Drawing.Size(126, 21);
+            this.ActionSelection.TabIndex = 21;
             // 
             // label1
             // 
@@ -133,103 +148,6 @@
             this.label1.Text = "Action:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // loggedOutCheckBox
-            // 
-            this.loggedOutCheckBox.AutoSize = true;
-            this.loggedOutCheckBox.Enabled = false;
-            this.loggedOutCheckBox.Location = new System.Drawing.Point(34, 164);
-            this.loggedOutCheckBox.Name = "loggedOutCheckBox";
-            this.loggedOutCheckBox.Size = new System.Drawing.Size(82, 17);
-            this.loggedOutCheckBox.TabIndex = 7;
-            this.loggedOutCheckBox.Text = "Logged Out";
-            this.loggedOutCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // watchedAdvertCheckBox
-            // 
-            this.watchedAdvertCheckBox.AutoSize = true;
-            this.watchedAdvertCheckBox.Enabled = false;
-            this.watchedAdvertCheckBox.Location = new System.Drawing.Point(34, 232);
-            this.watchedAdvertCheckBox.Name = "watchedAdvertCheckBox";
-            this.watchedAdvertCheckBox.Size = new System.Drawing.Size(104, 17);
-            this.watchedAdvertCheckBox.TabIndex = 10;
-            this.watchedAdvertCheckBox.Text = "Watched Advert";
-            this.watchedAdvertCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // playedGameCheckBox
-            // 
-            this.playedGameCheckBox.AutoSize = true;
-            this.playedGameCheckBox.Enabled = false;
-            this.playedGameCheckBox.Location = new System.Drawing.Point(34, 209);
-            this.playedGameCheckBox.Name = "playedGameCheckBox";
-            this.playedGameCheckBox.Size = new System.Drawing.Size(89, 17);
-            this.playedGameCheckBox.TabIndex = 9;
-            this.playedGameCheckBox.Text = "Played Game";
-            this.playedGameCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // gameActionCheckBox
-            // 
-            this.gameActionCheckBox.AutoSize = true;
-            this.gameActionCheckBox.Location = new System.Drawing.Point(12, 186);
-            this.gameActionCheckBox.Name = "gameActionCheckBox";
-            this.gameActionCheckBox.Size = new System.Drawing.Size(87, 17);
-            this.gameActionCheckBox.TabIndex = 8;
-            this.gameActionCheckBox.Text = "Game Action";
-            this.gameActionCheckBox.UseVisualStyleBackColor = true;
-            this.gameActionCheckBox.CheckedChanged += new System.EventHandler(this.gameActionCheckBox_CheckedChanged);
-            // 
-            // purchasedItemCheckBox
-            // 
-            this.purchasedItemCheckBox.AutoSize = true;
-            this.purchasedItemCheckBox.Enabled = false;
-            this.purchasedItemCheckBox.Location = new System.Drawing.Point(34, 255);
-            this.purchasedItemCheckBox.Name = "purchasedItemCheckBox";
-            this.purchasedItemCheckBox.Size = new System.Drawing.Size(100, 17);
-            this.purchasedItemCheckBox.TabIndex = 11;
-            this.purchasedItemCheckBox.Text = "Purchased Item";
-            this.purchasedItemCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // dateTimeFrom
-            // 
-            this.dateTimeFrom.Location = new System.Drawing.Point(12, 320);
-            this.dateTimeFrom.Name = "dateTimeFrom";
-            this.dateTimeFrom.Size = new System.Drawing.Size(122, 20);
-            this.dateTimeFrom.TabIndex = 17;
-            // 
-            // dateTimeTo
-            // 
-            this.dateTimeTo.Location = new System.Drawing.Point(12, 363);
-            this.dateTimeTo.Name = "dateTimeTo";
-            this.dateTimeTo.Size = new System.Drawing.Size(122, 20);
-            this.dateTimeTo.TabIndex = 18;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 304);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "From:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 347);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "To:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // ActionSelection
-            // 
-            this.ActionSelection.FormattingEnabled = true;
-            this.ActionSelection.Location = new System.Drawing.Point(12, 70);
-            this.ActionSelection.Name = "ActionSelection";
-            this.ActionSelection.Size = new System.Drawing.Size(126, 21);
-            this.ActionSelection.TabIndex = 21;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,13 +158,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dateTimeTo);
             this.Controls.Add(this.dateTimeFrom);
-            this.Controls.Add(this.purchasedItemCheckBox);
-            this.Controls.Add(this.watchedAdvertCheckBox);
-            this.Controls.Add(this.playedGameCheckBox);
-            this.Controls.Add(this.gameActionCheckBox);
-            this.Controls.Add(this.loggedOutCheckBox);
-            this.Controls.Add(this.loggedInCheckBox);
-            this.Controls.Add(this.userActionCheckBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.usenameLabel);
             this.Controls.Add(this.usernameTextBox);
@@ -266,19 +177,12 @@
         private GMap.NET.WindowsForms.GMapControl gMap;
         private System.Windows.Forms.TextBox usernameTextBox;
         private System.Windows.Forms.Label usenameLabel;
-        private System.Windows.Forms.CheckBox userActionCheckBox;
-        private System.Windows.Forms.CheckBox loggedInCheckBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox loggedOutCheckBox;
-        private System.Windows.Forms.CheckBox watchedAdvertCheckBox;
-        private System.Windows.Forms.CheckBox playedGameCheckBox;
-        private System.Windows.Forms.CheckBox gameActionCheckBox;
-        private System.Windows.Forms.CheckBox purchasedItemCheckBox;
         private System.Windows.Forms.DateTimePicker dateTimeFrom;
         private System.Windows.Forms.DateTimePicker dateTimeTo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox ActionSelection;
+        private System.Windows.Forms.Label label1;
     }
 }
 
