@@ -38,13 +38,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.ActionSelection = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Cotnrols = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(12, 317);
+            this.confirmButton.Location = new System.Drawing.Point(4, 317);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(126, 59);
+            this.confirmButton.Size = new System.Drawing.Size(134, 59);
             this.confirmButton.TabIndex = 0;
             this.confirmButton.Text = "Go!";
             this.confirmButton.UseVisualStyleBackColor = true;
@@ -148,11 +151,41 @@
             this.label1.Text = "Action:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // Cotnrols
+            // 
+            this.Cotnrols.AutoSize = true;
+            this.Cotnrols.Location = new System.Drawing.Point(1, 412);
+            this.Cotnrols.Name = "Cotnrols";
+            this.Cotnrols.Size = new System.Drawing.Size(50, 13);
+            this.Cotnrols.TabIndex = 22;
+            this.Cotnrols.Text = "Controlls:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 428);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(136, 13);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Right click to move camera";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 446);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Scroll to zoom";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1026, 583);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.Cotnrols);
             this.Controls.Add(this.ActionSelection);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -183,6 +216,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox ActionSelection;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label Cotnrols;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
     }
 }
 

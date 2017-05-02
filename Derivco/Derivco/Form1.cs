@@ -19,7 +19,6 @@ namespace Derivco
 {
     public partial class Form1 : Form
     {
-
         public enum Event {
             LoggedIn = 0,
             LoggedOut,
@@ -66,9 +65,10 @@ namespace Derivco
             Random random = new Random();
 
             //Checks if the event database has already been created
+            //This will take a short while to create all the different events and fill the database
             if (!File.Exists("Events.sqlite"))
             {
-                //If its not created then create the database and fill it with tables
+                //If its not created then create the database and add the table
                 SQLiteConnection.CreateFile("Events.sqlite");
 
                 dbConnect = new SQLiteConnection("Data Source=Events.sqlite;Version=3;");
@@ -113,7 +113,7 @@ namespace Derivco
                 dbConnect.Open();
             }
 
-            // for (int i = 0; i < (int)Event.All; i++)
+            //Add each event type to drop box
             foreach (Event events in Enum.GetValues(typeof(Event)))
             {
                 ActionSelection.Items.Add(events.ToString());
@@ -151,7 +151,7 @@ namespace Derivco
         public Event GetAction()
         {
             Random random = new Random();
-            //Returns a randomly selects either a random userAction or gameAction.
+            //Returns a randomlyselected event
             int ran = randomDouble.Next((int)Event.All);
 
             return (Event)ran;
@@ -164,6 +164,7 @@ namespace Derivco
             gMap.Overlays.Clear();
             markersToAdd.Clear();
 
+            //Builds SQL query
             string queryExample = "SELECT * FROM Events";
             List<string> options = new List<string>();
             string quote = "\"";

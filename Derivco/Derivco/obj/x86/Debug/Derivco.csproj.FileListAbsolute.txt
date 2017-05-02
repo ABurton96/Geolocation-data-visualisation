@@ -1,0 +1,14 @@
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\Derivco.exe.config
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\Derivco.exe
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\Derivco.pdb
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\GMap.NET.Core.dll
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\GMap.NET.WindowsForms.dll
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\System.Data.SQLite.dll
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\GMap.NET.Core.xml
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\GMap.NET.WindowsForms.xml
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\bin\x86\Debug\System.Data.SQLite.xml
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\x86\Debug\Derivco.Form1.resources
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\x86\Debug\Derivco.Properties.Resources.resources
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\x86\Debug\Derivco.csproj.GenerateResource.Cache
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\x86\Debug\Derivco.exe
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\x86\Debug\Derivco.pdb
