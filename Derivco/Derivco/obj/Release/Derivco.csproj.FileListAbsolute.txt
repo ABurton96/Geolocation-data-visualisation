@@ -12,3 +12,9 @@ C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\
 C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\Release\Derivco.csproj.GenerateResource.Cache
 C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\Release\Derivco.exe
 C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\Release\Derivco.pdb
+C:\Users\Ashley\Documents\GitHub\Geolocation-data-visualisation\Derivco\Derivco\obj\Release\Derivco.csprojResolveAssemblyReference.cache
+C:\Users\Ashley\Desktop\Map Build\Derivco.exe.config
+C:\Users\Ashley\Desktop\Revised Cake 10-11-17\Derivco.exe.config
+C:\Users\Ashley\Desktop\Dervico\Derivco.exe.config
+C:\Users\Ashley\Desktop\Dervico\Derivco.exe
+C:\Users\Ashley\Desktop\Dervico\Derivco.pdb

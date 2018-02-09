@@ -41,6 +41,8 @@
             this.Cotnrols = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.trackBarZoom = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
             this.SuspendLayout();
             // 
             // confirmButton
@@ -55,6 +57,7 @@
             // 
             // gMap
             // 
+            this.gMap.AutoSize = true;
             this.gMap.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.gMap.Bearing = 0F;
             this.gMap.CanDragMap = true;
@@ -62,9 +65,10 @@
             this.gMap.GrayScaleMode = false;
             this.gMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMap.LevelsKeepInMemmory = 5;
-            this.gMap.Location = new System.Drawing.Point(144, 0);
+            this.gMap.Location = new System.Drawing.Point(175, 12);
+            this.gMap.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
             this.gMap.MarkersEnabled = true;
-            this.gMap.MaxZoom = 20;
+            this.gMap.MaxZoom = 15;
             this.gMap.MinZoom = 1;
             this.gMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.gMap.Name = "gMap";
@@ -75,7 +79,7 @@
             this.gMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMap.ShowTileGridLines = false;
-            this.gMap.Size = new System.Drawing.Size(880, 578);
+            this.gMap.Size = new System.Drawing.Size(858, 553);
             this.gMap.TabIndex = 1;
             this.gMap.Zoom = 1D;
             this.gMap.Load += new System.EventHandler(this.gMap_Load);
@@ -154,7 +158,7 @@
             // Cotnrols
             // 
             this.Cotnrols.AutoSize = true;
-            this.Cotnrols.Location = new System.Drawing.Point(1, 412);
+            this.Cotnrols.Location = new System.Drawing.Point(6, 521);
             this.Cotnrols.Name = "Cotnrols";
             this.Cotnrols.Size = new System.Drawing.Size(50, 13);
             this.Cotnrols.TabIndex = 22;
@@ -163,7 +167,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 428);
+            this.label2.Location = new System.Drawing.Point(12, 537);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(136, 13);
             this.label2.TabIndex = 23;
@@ -172,17 +176,31 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 446);
+            this.label5.Location = new System.Drawing.Point(9, 388);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 24;
-            this.label5.Text = "Scroll to zoom";
+            this.label5.Text = "Zoom:";
+            // 
+            // trackBarZoom
+            // 
+            this.trackBarZoom.Location = new System.Drawing.Point(9, 404);
+            this.trackBarZoom.Maximum = 15;
+            this.trackBarZoom.Minimum = 1;
+            this.trackBarZoom.Name = "trackBarZoom";
+            this.trackBarZoom.Size = new System.Drawing.Size(139, 45);
+            this.trackBarZoom.TabIndex = 25;
+            this.trackBarZoom.Value = 1;
+            this.trackBarZoom.Scroll += new System.EventHandler(this.trackBarZoom_Scroll);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1026, 583);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(1026, 577);
+            this.Controls.Add(this.trackBarZoom);
+            this.Controls.Add(this.gMap);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Cotnrols);
@@ -194,11 +212,14 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.usenameLabel);
             this.Controls.Add(this.usernameTextBox);
-            this.Controls.Add(this.gMap);
             this.Controls.Add(this.confirmButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WebPage";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,6 +240,7 @@
         private System.Windows.Forms.Label Cotnrols;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TrackBar trackBarZoom;
     }
 }
 

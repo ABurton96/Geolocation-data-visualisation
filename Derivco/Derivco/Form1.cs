@@ -52,6 +52,8 @@ namespace Derivco
         DateTime currentDate = DateTime.Now;
 
         Random randomDouble = new Random();
+        bool searched = false;
+
 
         public Form1()
         {
@@ -61,7 +63,6 @@ namespace Derivco
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             Random random = new Random();
 
             //Checks if the event database has already been created
@@ -122,9 +123,13 @@ namespace Derivco
             ActionSelection.Text = "All";
         }
 
+        //Allows mouse wheel to work with zooming
         private void Form1_MouseWheel(object sender, MouseEventArgs e)
         {
-            confirmButton_Click(sender, e);
+            if(searched)
+                confirmButton_Click(sender, e);
+
+            trackBarZoom.Value = int.Parse(gMap.Zoom.ToString());
         }
 
         //Returns a random double
@@ -163,6 +168,8 @@ namespace Derivco
             //Clears current overlays 
             gMap.Overlays.Clear();
             markersToAdd.Clear();
+
+            searched = true;
 
             //Builds SQL query
             string queryExample = "SELECT * FROM Events";
@@ -297,15 +304,15 @@ namespace Derivco
             }
             else if (gMap.Zoom >= 3)
             {
-                clutterAmount = 3;
+                clutterAmount = 5;
             }
             else if (gMap.Zoom >= 1)
             {
-                clutterAmount = 8;
+                clutterAmount = 15;
             }
             else
             {
-                clutterAmount = 12;
+                clutterAmount = 20;
             }
 
             //For each point already on the map check it against the point that is about to be added
@@ -343,6 +350,15 @@ namespace Derivco
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             gMap.ShowCenter = false;
             gMap.SetPositionByKeywords("University Of Suffolk, Ipswich");
+        }
+
+        //Allows trackbar to work with zooming
+        private void trackBarZoom_Scroll(object sender, EventArgs e)
+        {
+            if (searched)
+                confirmButton_Click(sender, e);
+
+            gMap.Zoom = trackBarZoom.Value;
         }
     }
 }
